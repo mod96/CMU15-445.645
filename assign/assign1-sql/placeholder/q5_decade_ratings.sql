@@ -1,5 +1,5 @@
-SELECT t.premiered/10 * 10 || 's' AS decade, 
-        AVG(r.rating) AS avg_rating, 
+SELECT CAST(premiered/10*10 AS TEXT) || 's' AS decade, 
+        ROUND(AVG(r.rating), 2) AS avg_rating, 
         MAX(r.rating) AS top_rating, 
         MIN(r.rating) AS min_rating, 
         COUNT(*) AS num_releases

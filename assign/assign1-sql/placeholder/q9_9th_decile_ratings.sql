@@ -1,4 +1,4 @@
-SELECT name, ROUND(rating, 2)
+SELECT name, ROUND(rating, 2) AS rating
     FROM (SELECT name, rating, NTILE(10) OVER (ORDER BY rating) AS nt
             FROM (SELECT pe.name AS name, 
                         AVG(ra.rating) AS rating
@@ -9,4 +9,5 @@ SELECT name, ROUND(rating, 2)
                     WHERE pe.born = '1955' AND ti.type = 'movie'
                     GROUP BY pe.person_id, pe.name
                     ORDER BY AVG(ra.rating)))
-    WHERE nt = 9;
+    WHERE nt = 9
+    ORDER BY rating DESC, name ASC;
