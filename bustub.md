@@ -1,6 +1,6 @@
 ### Project 1 - Buffer Pool
 
-before optimization
+before optimization (seems not working well...)
 ```
 [info] total_page=6400, duration_ms=5000, latency=1, lru_k_size=16, bpm_size=64, scan_thread_cnt=8, get_thread_cnt=8
 [info] benchmark start
@@ -55,5 +55,79 @@ before optimization
 <<< BEGIN
 scan: 1134.5541401273886
 get: 320.0636942675159
+>>> END
+```
+
+after parallelization
+```
+[info] total_page=6400, duration_ms=5000, latency=1, lru_k_size=16, bpm_size=64, scan_thread_cnt=8, get_thread_cnt=8
+[info] benchmark start
+[ 1.00] get   6: total_cnt=51         throughput=50.949     avg_throughput=50.949    
+[ 1.00] get   1: total_cnt=50         throughput=49.850     avg_throughput=49.850    
+[ 1.00] get   0: total_cnt=59         throughput=58.824     avg_throughput=58.824    
+[ 1.00] scan  7: total_cnt=63         throughput=62.812     avg_throughput=62.812    
+[ 1.01] get   4: total_cnt=70         throughput=69.513     avg_throughput=69.513    
+[ 1.01] scan  1: total_cnt=54         throughput=53.571     avg_throughput=53.571    
+[ 1.01] scan  6: total_cnt=60         throughput=59.583     avg_throughput=59.583    
+[ 1.01] scan  0: total_cnt=61         throughput=60.456     avg_throughput=60.456    
+[ 1.01] scan  2: total_cnt=57         throughput=56.492     avg_throughput=56.492    
+[ 1.01] scan  3: total_cnt=59         throughput=58.532     avg_throughput=58.532    
+[ 1.01] get   3: total_cnt=42         throughput=41.667     avg_throughput=41.667    
+[ 1.01] get   7: total_cnt=55         throughput=54.402     avg_throughput=54.402    
+[ 1.01] get   5: total_cnt=63         throughput=62.315     avg_throughput=62.315    
+[ 1.01] scan  5: total_cnt=58         throughput=57.143     avg_throughput=57.143    
+[ 1.02] scan  4: total_cnt=59         throughput=58.014     avg_throughput=58.014    
+[ 1.02] get   2: total_cnt=51         throughput=50.049     avg_throughput=50.049    
+[ 2.01] get   0: total_cnt=125        throughput=65.606     avg_throughput=62.220    
+[ 2.01] get   4: total_cnt=144        throughput=73.705     avg_throughput=71.606    
+[ 2.01] get   1: total_cnt=114        throughput=63.492     avg_throughput=56.688    
+[ 2.01] scan  7: total_cnt=122        throughput=58.416     avg_throughput=60.606    
+[ 2.02] scan  5: total_cnt=111        throughput=52.947     avg_throughput=55.060    
+[ 2.02] get   6: total_cnt=129        throughput=76.772     avg_throughput=63.956    
+[ 2.02] scan  3: total_cnt=124        throughput=64.356     avg_throughput=61.447    
+[ 2.02] scan  1: total_cnt=122        throughput=67.127     avg_throughput=60.366    
+[ 2.02] get   7: total_cnt=127        throughput=71.217     avg_throughput=62.809    
+[ 2.02] scan  6: total_cnt=115        throughput=54.028     avg_throughput=56.790    
+[ 2.03] scan  4: total_cnt=118        throughput=58.185     avg_throughput=58.099    
+[ 2.03] scan  0: total_cnt=131        throughput=68.359     avg_throughput=64.437    
+[ 2.03] get   2: total_cnt=121        throughput=68.966     avg_throughput=59.489    
+[ 2.04] scan  2: total_cnt=119        throughput=60.370     avg_throughput=58.448    
+[ 2.03] get   3: total_cnt=120        throughput=76.023     avg_throughput=58.997    
+[ 2.04] get   5: total_cnt=126        throughput=61.284     avg_throughput=61.795    
+[ 3.02] get   4: total_cnt=197        throughput=52.789     avg_throughput=65.340    
+[ 3.02] scan  5: total_cnt=174        throughput=62.687     avg_throughput=57.597    
+[ 3.02] get   0: total_cnt=186        throughput=60.039     avg_throughput=61.488    
+[ 3.03] scan  3: total_cnt=184        throughput=59.465     avg_throughput=60.786    
+[ 3.03] get   6: total_cnt=204        throughput=74.184     avg_throughput=67.371    
+[ 3.03] scan  1: total_cnt=195        throughput=72.206     avg_throughput=64.314    
+[ 3.03] get   1: total_cnt=187        throughput=71.569     avg_throughput=61.696    
+[ 3.03] scan  6: total_cnt=178        throughput=62.500     avg_throughput=58.688    
+[ 3.03] scan  4: total_cnt=185        throughput=66.866     avg_throughput=60.996    
+[ 3.03] scan  0: total_cnt=191        throughput=59.940     avg_throughput=62.953    
+[ 3.04] scan  7: total_cnt=189        throughput=65.239     avg_throughput=62.171    
+[ 3.04] get   5: total_cnt=197        throughput=70.858     avg_throughput=64.781    
+[ 3.04] get   7: total_cnt=197        throughput=68.493     avg_throughput=64.717    
+[ 3.04] scan  2: total_cnt=180        throughput=60.456     avg_throughput=59.113    
+[ 3.04] get   3: total_cnt=199        throughput=78.140     avg_throughput=65.353    
+[ 3.08] get   2: total_cnt=192        throughput=68.204     avg_throughput=62.439    
+[ 4.03] scan  5: total_cnt=235        throughput=60.396     avg_throughput=58.298    
+[ 4.03] get   4: total_cnt=265        throughput=66.929     avg_throughput=65.741    
+[ 4.03] get   6: total_cnt=270        throughput=65.803     avg_throughput=66.981    
+[ 4.04] scan  0: total_cnt=249        throughput=57.769     avg_throughput=61.664    
+[ 4.04] get   1: total_cnt=261        throughput=73.559     avg_throughput=64.652    
+[ 4.04] scan  3: total_cnt=244        throughput=59.289     avg_throughput=60.411    
+[ 4.04] scan  6: total_cnt=249        throughput=70.577     avg_throughput=61.649    
+[ 4.04] scan  4: total_cnt=241        throughput=55.666     avg_throughput=59.668    
+[ 4.04] get   0: total_cnt=259        throughput=71.709     avg_throughput=64.061    
+[ 4.04] scan  1: total_cnt=265        throughput=69.102     avg_throughput=65.513    
+[ 4.04] scan  7: total_cnt=248        throughput=58.765     avg_throughput=61.325    
+[ 4.05] get   7: total_cnt=262        throughput=64.293     avg_throughput=64.612    
+[ 4.06] get   5: total_cnt=269        throughput=70.588     avg_throughput=66.240    
+[ 4.06] scan  2: total_cnt=249        throughput=67.847     avg_throughput=61.300    
+[ 4.07] get   3: total_cnt=263        throughput=62.745     avg_throughput=64.699    
+[ 4.09] get   2: total_cnt=262        throughput=68.898     avg_throughput=64.043    
+<<< BEGIN
+scan: 491.01078705553334
+get: 516.7798641630044
 >>> END
 ```
